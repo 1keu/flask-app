@@ -12,6 +12,7 @@ data = None
 
 def load_csv_from_remote():
     csv_url = os.getenv("CSV_URL")
+    print(f"ロードするCSVのURL: {csv_url}")  # デバッグ用
     if not csv_url:
         raise ValueError("環境変数 'CSV_URL' が設定されていません")
     
@@ -35,6 +36,8 @@ def home():
 @app.route('/get_data', methods=['GET'])
 def get_data():
     global data
+    print("現在のデータ:\n", data.head())
+    print("データ数:", len(data))
     keyword = request.args.get('keyword', '').lower()
     
     if keyword:
