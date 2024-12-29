@@ -11,7 +11,6 @@ CORS(app)
 data = None
 
 def load_csv_from_remote():
-    """GoogleドライブなどのリモートストレージからCSVを読み込む関数"""
     csv_url = os.getenv("CSV_URL")
     if not csv_url:
         raise ValueError("環境変数 'CSV_URL' が設定されていません")
@@ -30,7 +29,8 @@ data = load_csv_from_remote()
 
 @app.route('/')
 def home():
-    return "Welcome to Flask API!"
+    csv_url = os.getenv("CSV_URL", "環境変数が設定されていません")
+    return f"Welcome to Flask API! CSV_URL: {csv_url}"
 
 @app.route('/get_data', methods=['GET'])
 def get_data():
